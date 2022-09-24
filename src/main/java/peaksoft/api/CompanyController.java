@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import peaksoft.dto.request.CompanyRequest;
 import peaksoft.dto.response.CompanyResponse;
+import peaksoft.dto.response.SimpleResponse;
 import peaksoft.dto.responseView.CompanyResponseView;
 import peaksoft.model.Company;
 import peaksoft.service.CompanyService;
@@ -19,19 +20,19 @@ public class CompanyController {
 
     private final CompanyService service;
 
-    @PostMapping
+    @PostMapping("/save")
     public CompanyResponse create(@RequestBody CompanyRequest company) {
         return service.addCompany(company);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public CompanyResponse getById(@PathVariable Long id) {
         return service.getById(id);
     }
 
-    @DeleteMapping("/{id}")
-    public CompanyResponse deleteById(@PathVariable Long id) {
-        return service.getById(id);
+    @DeleteMapping("/delete/{companyId}")
+    public SimpleResponse deleteById(@PathVariable Long companyId) {
+        return service.deleteById(companyId);
     }
 
     @PutMapping("/block/{id}")
@@ -40,12 +41,12 @@ public class CompanyController {
 
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public CompanyResponse update(@PathVariable Long id, @RequestBody CompanyRequest request) {
         return service.updateCompany(id, request);
     }
 
-    @GetMapping
+    @GetMapping("/getAll")
     public List<Company> getAll() {
         return service.findAllCompany();
     }

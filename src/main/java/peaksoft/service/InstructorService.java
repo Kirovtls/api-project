@@ -57,8 +57,7 @@ public class InstructorService {
         if (!exists) {
             throw new NotFoundException("instructor with id " + id + " not found!");
         }
-        Instructor instructor = getById(id);
-        instructorRepository.delete(instructor);
+        instructorRepository.deleteById(id);
         return new SimpleResponse(
                 "DELETED",
                 "instructor with id " + id +  "deleted successfully"
@@ -94,12 +93,6 @@ public class InstructorService {
         instructorRepository.save(instructor);
         return String.format("Instructor with =%s id assigned to course", instructorId);
     }
-
-// return new CourseResponse(course.getCourseId(),
-//                course.getCourse_name(),
-//                        course.getDuration(),
-//                        course.getDescription(),
-//                        course.getImage(),course.getDateOfStart());
 
     public InstructorResponse mapToView(Instructor instructor) {
         InstructorResponse response = new InstructorResponse();

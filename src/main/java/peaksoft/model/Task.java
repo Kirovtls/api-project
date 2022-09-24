@@ -39,4 +39,7 @@ public class Task {
         this.taskText = taskText;
         this.deadline = deadline;
     }
+
+    public void addVideo(Video video) {
+    }
 }

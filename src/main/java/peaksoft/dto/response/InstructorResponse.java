@@ -8,8 +8,6 @@ import peaksoft.model.Company;
 
 @Getter
 @Setter
-//@NoArgsConstructor
-//@AllArgsConstructor
 public class InstructorResponse {
 
     private Long id;

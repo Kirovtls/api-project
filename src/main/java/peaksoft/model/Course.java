@@ -74,7 +74,7 @@ public class Course {
         }
     }
 
-    public void addStudents(Student student) {
+    public void addStudent(Student student) {
         if (students == null) {
             students = new ArrayList<>();
         } else {
@@ -82,7 +82,7 @@ public class Course {
         }
     }
 
-    public void addLessons(Lesson lesson) {
+    public void addLesson(Lesson lesson) {
         if (lessons == null) {
             lessons = new ArrayList<>();
         } else {

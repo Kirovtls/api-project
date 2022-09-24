@@ -6,7 +6,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import peaksoft.dto.request.CompanyRequest;
 import peaksoft.dto.response.CompanyResponse;
+import peaksoft.dto.response.SimpleResponse;
 import peaksoft.dto.responseView.CompanyResponseView;
+import peaksoft.exception.NotFoundException;
 import peaksoft.model.Company;
 import peaksoft.repository.CompanyRepository;
 
@@ -29,29 +31,40 @@ public class CompanyService {
     }
 
     public CompanyResponse updateCompany(Long id, CompanyRequest request) {
-        Company company = companyRepository.findById(id).get();
+        Company company = getCompanyById(id);
         Company company1 = updateCompany(company, request);
         companyRepository.save(company1);
         return getResponse(company1);
     }
 
     public CompanyResponse getById(Long id) {
-        Company company = companyRepository.findById(id).get();
+        Company company = getCompanyById(id);
         return getResponse(company);
     }
 
     public CompanyResponse block(Long id) {
-        Company company = companyRepository.findById(id).get();
+        Company company = getCompanyById(id);
         company.setActive(false);
         companyRepository.save(company);
         return getResponse(company);
 
     }
 
-    public CompanyResponse deleteById(Long id) {
-        Company company = companyRepository.findById(id).get();
-        companyRepository.delete(company);
-        return getResponse(company);
+    public SimpleResponse deleteById(Long companyId) {
+        boolean exists = companyRepository.existsById(companyId);
+        if (!exists) {
+            throw new NotFoundException("instructor with id " + companyId + " not found!");
+        }
+        companyRepository.deleteById(companyId);
+        return new SimpleResponse(
+                "DELETED",
+                "company with id " + companyId + "deleted successfully"
+        );
+    }
+
+    private Company getCompanyById(Long companyId) {
+        return companyRepository.findById(companyId).orElseThrow(() ->
+                new NotFoundException("Company with id: " + companyId + "not found !"));
     }
 
     public List<Company> findAllCompany() {

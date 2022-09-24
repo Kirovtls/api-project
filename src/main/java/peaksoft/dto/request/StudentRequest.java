@@ -12,7 +12,7 @@ import javax.persistence.Enumerated;
 public class StudentRequest {
     private String firstName;
     private String lastName;
-    private int phoneNumber;
+    private String phoneNumber;
     private String email;
     @Enumerated(EnumType.ORDINAL)
     private StudyFormat studyFormat;
