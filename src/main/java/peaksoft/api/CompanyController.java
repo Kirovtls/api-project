@@ -57,6 +57,4 @@ public class CompanyController {
         return service.getAllCompaniesPagination(text, page, size);
 
     }
-
-
 }

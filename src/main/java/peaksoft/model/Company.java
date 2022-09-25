@@ -21,7 +21,7 @@ public class Company {
     private Long companyId;
     @Column(name = "company_name")
     private String companyName;
-    @Column(name = "located_country♥")
+    @Column(name = "located_country")
     private String locatedCountry;
     @Column(name = "created_at")
     private LocalDate createAt;

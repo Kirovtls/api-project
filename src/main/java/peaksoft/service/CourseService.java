@@ -7,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import peaksoft.dto.request.CourseRequest;
 import peaksoft.dto.response.CourseResponse;
+import peaksoft.dto.response.SimpleResponse;
 import peaksoft.dto.responseView.CourseResponseView;
 import peaksoft.exception.NotFoundException;
 import peaksoft.model.Company;
@@ -58,12 +59,18 @@ public class CourseService {
         course.setDuration(courseRequest.getDuration());
         course.setImage(courseRequest.getImage());
         course.setDateOfStart(courseRequest.getDateOfStart());
-        Company company = companyRepository.findById(courseRequest.getCompanyId()).orElseThrow(
-                () -> new NotFoundException(String.format("Company with =%s id not found",
-                        courseRequest.getCompanyId())));
-        course.setCompany(company);
-        company.addCourse(course);
-        return courseRepository.save(course);
+        return course;
+//        course.setCourse_name(courseRequest.getCourse_name());
+//        course.setDescription(courseRequest.getDescription());
+//        course.setDuration(courseRequest.getDuration());
+//        course.setImage(courseRequest.getImage());
+//        course.setDateOfStart(courseRequest.getDateOfStart());
+//        Company company = companyRepository.findById(courseRequest.getCompanyId()).orElseThrow(
+//                () -> new NotFoundException(String.format("Company with =%s id not found",
+//                        courseRequest.getCompanyId())));
+//        course.setCompany(company);
+//        company.addCourse(course);
+//        return courseRepository.save(course);
     }
 
     public CourseResponse updateCourseById(Long id, CourseRequest courseRequest) {
@@ -74,15 +81,18 @@ public class CourseService {
     }
 
 
-    public CourseResponse deleteCourse(Long id) {
-        Course course = courseRepository.findById(id).orElseThrow(
-                () -> new NotFoundException(String.format("Course with =%s id not found", id)));
-        course.setCompany(null);
-        courseRepository.delete(course);
-        return response(course);
+    public SimpleResponse deleteCourse(Long id) {
+        boolean exists = courseRepository.existsById(id);
+        if (!exists) {
+            throw new NotFoundException("course with id " + id + " not found!");
+        }
+        courseRepository.deleteById(id);
+        return new SimpleResponse(
+                "DELETED",
+                "instructor with id " + id + "deleted successfully"
+        );
+
     }
-
-
     public List<CourseResponse> getAllCourses(List<Course> courses) {
         List<CourseResponse> responses = new ArrayList<>();
         for (Course course : courses) {
@@ -112,6 +122,6 @@ public class CourseService {
                 course.getCourse_name(),
                 course.getDuration(),
                 course.getDescription(),
-                course.getImage(),course.getDateOfStart());
+                course.getImage(), course.getDateOfStart());
     }
 }

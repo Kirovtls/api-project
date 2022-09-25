@@ -10,7 +10,7 @@ import peaksoft.service.VideoService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/task")
+@RequestMapping("/api/video")
 @RequiredArgsConstructor
 public class VideoController {
 

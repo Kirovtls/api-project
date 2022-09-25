@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import peaksoft.dto.request.CourseRequest;
 import peaksoft.dto.response.CourseResponse;
+import peaksoft.dto.response.SimpleResponse;
 import peaksoft.dto.responseView.CourseResponseView;
 import peaksoft.service.CourseService;
 
@@ -25,19 +26,19 @@ public class CourseController {
         return courseService.saveCourse(courseRequest);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get/{id}")
     public CourseResponse getCourseById(@PathVariable Long id) {
         return courseService.getCourseById(id);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public CourseResponse updateCourseById(@PathVariable Long id,
                                            @RequestBody CourseRequest courseRequest) {
         return courseService.updateCourseById(id, courseRequest);
     }
 
-    @DeleteMapping("/{id}")
-    public CourseResponse deleteCourseById(@PathVariable Long id) {
+    @DeleteMapping("delete//{id}")
+    public SimpleResponse deleteCourseById(@PathVariable Long id) {
         return courseService.deleteCourse(id);
     }
 

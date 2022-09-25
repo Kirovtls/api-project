@@ -117,6 +117,5 @@ public class CompanyService {
         companyResponse.setLocatedCountry(company.getLocatedCountry());
         return companyResponse;
 
-
     }
 }

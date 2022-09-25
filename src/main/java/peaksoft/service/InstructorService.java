@@ -83,16 +83,16 @@ public class InstructorService {
         );
     }
 
-    public String assign(Long instructorId, Long courseId) {
-        Instructor instructor = instructorRepository.findById(instructorId).orElseThrow(
-                () -> new NotFoundException(String.format("Instructor with =%s id not found", instructorId)));
-        Course course = courseRepository.findById(courseId).orElseThrow(
-                () -> new NotFoundException(String.format("Course with =%s id not found", instructorId)));
-        instructor.addCourse(course);
-        course.addInstructor(instructor);
-        instructorRepository.save(instructor);
-        return String.format("Instructor with =%s id assigned to course", instructorId);
-    }
+//    public String assign(Long instructorId, Long courseId) {
+//        Instructor instructor = instructorRepository.findById(instructorId).orElseThrow(
+//                () -> new NotFoundException(String.format("Instructor with =%s id not found", instructorId)));
+//        Course course = courseRepository.findById(courseId).orElseThrow(
+//                () -> new NotFoundException(String.format("Course with =%s id not found", instructorId)));
+//        instructor.addCourse(course);
+//        course.addInstructor(instructor);
+//        instructorRepository.save(instructor);
+//        return String.format("Instructor with =%s id assigned to course", instructorId);
+//    }
 
     public InstructorResponse mapToView(Instructor instructor) {
         InstructorResponse response = new InstructorResponse();
